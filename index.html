@@ -1,186 +1,147 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Tropical Revolution - Expandido</title>
-
-    <!-- External styles (move inline CSS to this file) -->
-    <link rel="stylesheet" href="styles.css">
-
-    <!-- Place for metadata, manifest, favicons -->
-    <!-- Ex: <link rel="manifest" href="/manifest.json"> -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tropical Revolution - Expandido</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Banana Background Container (decorativo) -->
-    <div class="banana-container" aria-hidden="true"></div>
+  <div class="banana-container" aria-hidden="true"></div>
 
-    <div class="container" id="app">
-        <header>
-            <div>
-                <h1 id="game-title">🌴 Tropical Revolution 🌴</h1>
-                <p>
-                    Governo:
-                    <span id="government-type">República Democrática</span>
-                    |
-                    Ano: <span id="year">1985</span>
-                    |
-                    Dificuldade: <span id="difficulty">Normal</span>
-                </p>
+  <div class="container" id="app">
+    <header>
+      <div>
+        <h1 id="game-title">🌴 Tropical Revolution 🌴</h1>
+        <p>
+          Governo:
+          <span id="government-type">República Democrática</span> |
+          Ano: <span id="year">1985</span> |
+          Dificuldade: <span id="difficulty">Normal</span>
+        </p>
+      </div>
+
+      <div class="audio-controls" aria-hidden="false">
+        <button class="audio-btn" id="music-toggle" aria-pressed="false">🔊 Música</button>
+        <button class="audio-btn" id="sfx-toggle" aria-pressed="true">🔊 Efeitos</button>
+
+        <select id="background-select" aria-label="Selecionar fundo da cena">
+          <option value="default">Fundo Padrão</option>
+          <option value="beach">Praia Tropical</option>
+          <option value="jungle">Selva</option>
+          <option value="mountain">Montanhas</option>
+          <option value="city">Cidade</option>
+        </select>
+      </div>
+    </header>
+
+    <main>
+      <div class="controls">
+        <div class="difficulty-selector" role="tablist" aria-label="Dificuldade">
+          <button class="difficulty-btn active" data-difficulty="easy">Fácil</button>
+          <button class="difficulty-btn" data-difficulty="normal">Normal</button>
+          <button class="difficulty-btn" data-difficulty="hard">Difícil</button>
+          <button class="difficulty-btn" data-difficulty="expert">Especialista</button>
+        </div>
+
+        <div class="map-selector" role="tablist" aria-label="Mapa">
+          <button class="map-btn active" data-map="tropical">Ilha Tropical</button>
+          <button class="map-btn" data-map="archipelago">Arquipélago</button>
+          <button class="map-btn" data-map="mainland">Continente</button>
+        </div>
+      </div>
+
+      <div class="regime-selector" role="radiogroup" aria-label="Selecionar regime">
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="democracy">Democracia</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="laissez_faire">Laissez-Faire</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="social_democracy">Social-Democracia</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="populism">Populismo</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="communism">Comunismo</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="fascism">Fascismo</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="theocracy">Teocracia</button>
+        <button class="regime-btn" role="radio" aria-checked="false" data-regime="military_junta">Junta Militar</button>
+      </div>
+
+      <div class="tab-container" role="tablist" aria-label="Guias">
+        <div class="tab active" data-tab="main" role="tab" aria-selected="true">Principal</div>
+        <div class="tab" data-tab="economy" role="tab" aria-selected="false">Economia</div>
+        <div class="tab" data-tab="military" role="tab" aria-selected="false">Militar</div>
+        <div class="tab" data-tab="diplomacy" role="tab" aria-selected="false">Diplomacia</div>
+      </div>
+
+      <section class="tab-content active" id="main-tab" role="tabpanel">
+        <div class="game-area">
+          <div class="island-map" id="island-map" aria-label="Mapa do território" tabindex="0"></div>
+
+          <aside class="stats-panel" aria-labelledby="indicadores-h">
+            <h2 id="indicadores-h">Indicadores Nacionais</h2>
+
+            <div class="tooltip">Estabilidade:
+              <span class="tooltiptext">Quão estável é o seu governo. Baixa estabilidade pode levar a revoltas.</span>
+            </div>
+            <div class="stat-bar" aria-hidden="false">
+              <div class="stat-fill stability" id="stability-bar" style="width:65%"></div>
+              <div class="stat-label" id="stability-text">65%</div>
             </div>
 
-            <div class="audio-controls" aria-hidden="false">
-                <button class="audio-btn" id="music-toggle" aria-pressed="false">🔊 Música</button>
-                <button class="audio-btn" id="sfx-toggle" aria-pressed="true">🔊 Efeitos</button>
-
-                <!-- Background preset selection (you can add external images in /assets/images/) -->
-                <select id="background-select" aria-label="Selecionar fundo da cena">
-                    <option value="default">Fundo Padrão</option>
-                    <option value="beach">Praia Tropical</option>
-                    <option value="jungle">Selva</option>
-                    <option value="mountain">Montanhas</option>
-                    <option value="city">Cidade</option>
-                </select>
+            <div class="tooltip">Economia:
+              <span class="tooltiptext">Saúde da sua economia. Afeta seus recursos e capacidade de investimento.</span>
             </div>
-        </header>
-
-        <main>
-            <div class="controls">
-                <div class="difficulty-selector" role="tablist" aria-label="Dificuldade">
-                    <button class="difficulty-btn active" data-difficulty="easy">Fácil</button>
-                    <button class="difficulty-btn" data-difficulty="normal">Normal</button>
-                    <button class="difficulty-btn" data-difficulty="hard">Difícil</button>
-                    <button class="difficulty-btn" data-difficulty="expert">Especialista</button>
-                </div>
-
-                <div class="map-selector" role="tablist" aria-label="Mapa">
-                    <button class="map-btn active" data-map="tropical">Ilha Tropical</button>
-                    <button class="map-btn" data-map="archipelago">Arquipélago</button>
-                    <button class="map-btn" data-map="mainland">Continente</button>
-                </div>
+            <div class="stat-bar">
+              <div class="stat-fill economy" id="economy-bar" style="width:45%"></div>
+              <div class="stat-label" id="economy-text">45%</div>
             </div>
 
-            <div class="regime-selector" role="radiogroup" aria-label="Selecionar regime">
-                <!-- role radiogroup + aria-checked nos botões para acessibilidade -->
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="democracy">Democracia</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="laissez_faire">Laissez-Faire</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="social_democracy">Social-Democracia</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="populism">Populismo</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="communism">Comunismo</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="fascism">Fascismo</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="theocracy">Teocracia</button>
-                <button class="regime-btn" role="radio" aria-checked="false" data-regime="military_junta">Junta Militar</button>
+            <div class="tooltip">Apoio Popular:
+              <span class="tooltiptext">Quanto o povo apoia seu governo. Baixo apoio reduz estabilidade.</span>
+            </div>
+            <div class="stat-bar">
+              <div class="stat-fill support" id="support-bar" style="width:70%"></div>
+              <div class="stat-label" id="support-text">70%</div>
             </div>
 
-            <div class="tab-container" role="tablist" aria-label="Guias">
-                <div class="tab active" data-tab="main" role="tab" aria-selected="true">Principal</div>
-                <div class="tab" data-tab="economy" role="tab" aria-selected="false">Economia</div>
-                <div class="tab" data-tab="military" role="tab" aria-selected="false">Militar</div>
-                <div class="tab" data-tab="diplomacy" role="tab" aria-selected="false">Diplomacia</div>
+            <div class="tooltip">Controle Militar:
+              <span class="tooltiptext">Quanto do território está sob controle governamental.</span>
+            </div>
+            <div class="stat-bar">
+              <div class="stat-fill military" id="military-bar" style="width:85%"></div>
+              <div class="stat-label" id="military-text">85%</div>
             </div>
 
-            <section class="tab-content active" id="main-tab" role="tabpanel">
-                <div class="game-area">
-                    <div class="island-map" id="island-map" aria-label="Mapa do território" tabindex="0">
-                        <!-- Zonas geradas por js -->
-                    </div>
+            <div class="resources" aria-hidden="false">
+              <div class="resource"><div>💰 Orçamento</div><div class="resource-value" id="budget">$15,000</div></div>
+              <div class="resource"><div>🛢️ Recursos</div><div class="resource-value" id="resources">2,500</div></div>
+              <div class="resource"><div>👥 População</div><div class="resource-value" id="population">125K</div></div>
+              <div class="resource"><div>⚡ Energia</div><div class="resource-value" id="energy">1,200</div></div>
+            </div>
 
-                    <aside class="stats-panel" aria-labelledby="indicadores-h">
-                        <h2 id="indicadores-h">Indicadores Nacionais</h2>
+            <h3>Facções Políticas</h3>
+            <div class="faction-bar" aria-hidden="false"></div>
+          </aside>
+        </div>
 
-                        <div class="tooltip">
-                            Estabilidade:
-                            <span class="tooltiptext">Quão estável é o seu governo. Baixa estabilidade pode levar a revoltas.</span>
-                        </div>
-                        <div class="stat-bar" aria-hidden="false">
-                            <div class="stat-fill stability" id="stability-bar" style="width: 65%;"></div>
-                            <div class="stat-label" id="stability-text">65%</div>
-                        </div>
+        <div class="actions-panel" id="actions-panel" aria-label="Ações disponíveis"></div>
 
-                        <div class="tooltip">
-                            Economia:
-                            <span class="tooltiptext">Saúde da sua economia. Afeta seus recursos e capacidade de investimento.</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-fill economy" id="economy-bar" style="width: 45%;"></div>
-                            <div class="stat-label" id="economy-text">45%</div>
-                        </div>
+        <div class="events-log" id="events-log" role="log" aria-live="polite" aria-atomic="false">
+          <h3>📰 Eventos e Notícias</h3>
+        </div>
 
-                        <div class="tooltip">
-                            Apoio Popular:
-                            <span class="tooltiptext">Quanto o povo apoia seu governo. Baixo apoio reduz estabilidade.</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-fill support" id="support-bar" style="width: 70%;"></div>
-                            <div class="stat-label" id="support-text">70%</div>
-                        </div>
+        <div style="text-align:center;margin-top:20px;">
+          <button id="next-turn">Próximo Turno</button>
+        </div>
+      </section>
+    </main>
+  </div>
 
-                        <div class="tooltip">
-                            Controle Militar:
-                            <span class="tooltiptext">Quanto do território está sob controle governamental.</span>
-                        </div>
-                        <div class="stat-bar">
-                            <div class="stat-fill military" id="military-bar" style="width: 85%;"></div>
-                            <div class="stat-label" id="military-text">85%</div>
-                        </div>
+  <!-- Audio uses external URLs so there's no dependency on local asset folders -->
+  <audio id="background-music" loop preload="auto">
+    <source src="https://upload.wikimedia.org/wikipedia/commons/2/24/Tico_tico_no_fub%C3%A1.ogg" type="audio/ogg">
+  </audio>
 
-                        <div class="resources" aria-hidden="false">
-                            <div class="resource">
-                                <div>💰 Orçamento</div>
-                                <div class="resource-value" id="budget">$15,000</div>
-                            </div>
-                            <div class="resource">
-                                <div>🛢️ Recursos</div>
-                                <div class="resource-value" id="resources">2,500</div>
-                            </div>
-                            <div class="resource">
-                                <div>👥 População</div>
-                                <div class="resource-value" id="population">125K</div>
-                            </div>
-                            <div class="resource">
-                                <div>⚡ Energia</div>
-                                <div class="resource-value" id="energy">1,200</div>
-                            </div>
-                        </div>
+  <audio id="sfx-click" preload="auto">
+    <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3" type="audio/mpeg">
+  </audio>
 
-                        <h3>Facções Políticas</h3>
-                        <div class="faction-bar" aria-hidden="false">
-                            <!-- facções... -->
-                        </div>
-                    </aside>
-                </div>
-
-                <div class="actions-panel" id="actions-panel" aria-label="Ações disponíveis">
-                    <!-- Ações geradas por js -->
-                </div>
-
-                <div class="events-log" id="events-log" role="log" aria-live="polite" aria-atomic="false">
-                    <h3>📰 Eventos e Notícias</h3>
-                    <!-- Eventos inseridos dinamicamente -->
-                </div>
-
-                <div style="text-align:center; margin-top:20px;">
-                    <button id="next-turn">Próximo Turno</button>
-                </div>
-            </section>
-
-            <!-- Removi conteúdo duplicado dos outros tabs para manter HTML enxuto.
-                 As abas carregam os conteúdos via JS a partir de /data/game-data.json -->
-        </main>
-    </div>
-
-    <!-- Audio: recomendado colocar arquivos em /assets/sounds/ (ex.: background.ogg) -->
-    <audio id="background-music" loop preload="auto">
-        <source src="/assets/sounds/background.ogg" type="audio/ogg">
-        <!-- Fallback source, keep offline/demo copy in /assets/sounds/ -->
-    </audio>
-
-    <!-- Minimal SFX loader (you can reference /assets/sounds/) -->
-    <audio id="sfx-click" preload="auto">
-        <source src="/assets/sounds/click.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- External script (modularized) -->
-    <script type="module" src="main.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
