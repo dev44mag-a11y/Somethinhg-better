@@ -1,0 +1,12 @@
+{
+  "zones": [
+    { "id": "capital", "name": "Capital", "type": "urban", "x": 50, "y": 20, "w": 16, "h": 12 },
+    { "id": "harbor", "name": "Porto", "type": "coastal", "x": 75, "y": 65, "w": 12, "h": 10 },
+    { "id": "mount", "name": "Montanhas", "type": "mountain", "x": 20, "y": 30, "w": 18, "h": 16 },
+    { "id": "village", "name": "Vilarejo", "type": "rural", "x": 40, "y": 70, "w": 10, "h": 8 },
+    { "id": "rebel_base", "name": "Base Rebelde", "type": "rebel", "x": 60, "y": 40, "w": 12, "h": 8 }
+  ],
+  "actions": [
+    { "id":"invest_education", "title":"Investir em Educação", "cost":1500, "effects": {"support":3, "economy":2} }
+  ]
+}
